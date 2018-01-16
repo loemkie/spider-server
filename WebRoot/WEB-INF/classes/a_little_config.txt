@@ -1,0 +1,4 @@
+jdbcUrl = jdbc:mysql://localhost/mobile_spider?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = root
+password = root
+devMode = true
