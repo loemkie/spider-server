@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.ext.kit.DateKit;
 import com.lmk.common.model.VultrSubmitData;
 
 /**
@@ -44,7 +45,18 @@ public class VultrSubmitDataController extends Controller {
 		List<VultrSubmitData> vultrSubmitDataList = service.findList(vultrSubmitData);
 		String str = "";
 		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
-			str+=vultrSubmitData2.get("mobile")+"|"+vultrSubmitData2.get("card_id")+"|"+vultrSubmitData2.get("city")+"|"+vultrSubmitData2.getDate("update_date")+"\n";
+			str+=vultrSubmitData2.get("mobile")+"|"+vultrSubmitData2.get("spec")+"|"+DateKit.toStr(vultrSubmitData2.getDate("update_date"), DateKit.timeStampPattern)+
+					"|"+vultrSubmitData2.get("card_id")+"|"+vultrSubmitData2.get("city")+"\n";
+		}
+		renderText(str);
+	}
+	
+	public void sale() {
+		VultrSubmitData vultrSubmitData = new VultrSubmitData();
+		List<VultrSubmitData> vultrSubmitDataList = service.findSaleList(vultrSubmitData);
+		String str = "";
+		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
+			str+=vultrSubmitData2.get("mobile")+"|"+vultrSubmitData2.get("spec")+"|"+DateKit.toStr(vultrSubmitData2.getDate("update_date"), DateKit.timeStampPattern)+"\n";
 		}
 		renderText(str);
 	}

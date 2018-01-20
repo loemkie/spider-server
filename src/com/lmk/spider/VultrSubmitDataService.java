@@ -27,6 +27,9 @@ public class VultrSubmitDataService {
 	public List<VultrSubmitData> findList(VultrSubmitData vultrSubmitData){
 		return dao.find("select * from vultr_submit_data order by update_date desc");
 	}
+	public List<VultrSubmitData> findSaleList(VultrSubmitData vultrSubmitData){
+		return dao.find("select * from vultr_submit_data where DATEDIFF(update_date,NOW())<=0 AND DATEDIFF(update_date,NOW())>-2 order by mobile,update_date desc");
+	}
 	public VultrSubmitData findById(int id) {
 		return dao.findById(id);
 	}
