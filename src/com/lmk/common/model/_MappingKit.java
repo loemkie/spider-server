@@ -18,6 +18,9 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 //		arp.addMapping("blog", "id", Blog.class);
 		arp.addMapping("vultr_submit_data", VultrSubmitData.class);
+		arp.addMapping("card_id_assign", CardIdAssign.class);
+		arp.addMapping("office", Office.class);
+		arp.addMapping("id_card_info", IdCardInfo.class);
 	}
 }
 

@@ -23,12 +23,21 @@ public class VultrSubmitDataService {
 	public Page<VultrSubmitData> paginate(int pageNumber, int pageSize) {
 		return dao.paginate(pageNumber, pageSize, "select *", "from vultr_submit_data order by update_date asc");
 	}
-	
+	/**
+	 * 只能查询当天
+	 * @param vultrSubmitData
+	 * @return
+	 */
 	public List<VultrSubmitData> findList(VultrSubmitData vultrSubmitData){
-		return dao.find("select * from vultr_submit_data order by update_date desc");
+		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) >= 0 order by update_date desc");
 	}
+	/**
+	 * 只能查询当天和昨天的数据
+	 * @param vultrSubmitData
+	 * @return
+	 */
 	public List<VultrSubmitData> findSaleList(VultrSubmitData vultrSubmitData){
-		return dao.find("select * from vultr_submit_data where DATEDIFF(update_date,NOW())<=0 AND DATEDIFF(update_date,NOW())>-2 order by mobile,update_date desc");
+		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) = 0 order by mobile,update_date desc");
 	}
 	public VultrSubmitData findById(int id) {
 		return dao.findById(id);

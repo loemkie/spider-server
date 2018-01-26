@@ -5,12 +5,12 @@ img,fieldset,abbr,acronym{border:0}
 ol,ul{list-style:none}
 table{border-collapse:collapse;border-spacing:0}
 caption,th,td{text-align:left;vertical-align:top}
-body{background:#FFF url(../img/bg.gif) repeat-x scroll 0 0;color:#333;font-family:Arial,Helvetica,sans-serif;font-size:11px;width:1000px;margin:0 auto !important}
+body{background:#FFF url(../img/bg.gif) repeat-x scroll 0 0;color:#333;font-family:Arial,Helvetica,sans-serif;font-size:11px;width:500px;margin:0 auto !important}
 .clear{clear:both}
 .red{color:#f00}
 a{color:#047DB6;text-decoration:underline}
 a:hover{color:#f60}
-.manage_container{width:1000px;margin:0 auto}
+.manage_container{width:550px;margin:0 auto}
 body .manage_container{font-size:12px;}
 .manage_container b{background:none;display:inline}
 .manage_deal .list{width:240px;float:left;}
@@ -36,10 +36,10 @@ table tr.highlight{background-color:#c90}
 #nav ul li.current a{background-color:#6f9c6f}
 #nav ul li a b{float:left;display:block;background:transparent url(../img/right2.gif) no-repeat right bottom;padding:4px 3px; margin:0;height:auto;width:auto;}
 h1{font-size:15px;line-height:30px}
-.table_box{width:998px;border:1px solid #89D5EF;background:#FFF;margin-bottom:25px;float:left;padding:1px}
+.table_box{width:400px;border:1px solid #89D5EF;background:#FFF;margin-bottom:25px;float:left;padding:1px}
 .table_box table{border:1px solid #CCC;border-collapse:collapse;width:100%}
 .table_box table td,.table_box table th{border-right:1px solid #ccc;border-bottom:1px solid #ccc;overflow:hidden;padding:0 3px}
-.form_box{width:998px;border:1px solid #89d5ef;background:#fff;margin-bottom:25px;float:left;font-size:13px}
+.form_box{width:600px;border:1px solid #89d5ef;background:#fff;margin-bottom:25px;float:left;font-size:13px}
 .form_box form div{overflow:hidden;_zoom:1;line-height:30px}
 .form_box form div label{float:left;padding-right:10px;text-align:right;width:130px}
 .form_box input{width:expression(this.type=="text"?"565px":"style")}
@@ -98,10 +98,10 @@ a.notice{font-size:200%;font-weight:700}
 .manage_info .ext_info{font-size:10px;color:#000}
 .manage_info .ext_info_enlarged{font-size:12px;height:300px}
 .form_box form div input,.deal_detail1 .info .timeleft,.manage_deals .manage_deal .deal_item{float:left}
-.form_box input[type=text],.form_box textarea{width:565px}
+.form_box input[type=text],.form_box textarea{width:150px}
 .deal_detail1 .info .district,.fr{float:right}
 .manage_deals .manage_deal .operation_td,.manage_deals .manage_deal .related-info{width:100%}
-.manage_container #inter_veil{position:fixed;background:#000;z-index:150;-moz-opacity:0.5;opacity:.50;filter:alpha(opacity=50);width:100%;left:0;top:0;visibility:visible;height:1000px;}
+.manage_container #inter_veil{position:fixed;background:#000;z-index:150;-moz-opacity:0.5;opacity:.50;filter:alpha(opacity=50);width:100%;left:0;top:0;visibility:visible;height:500px;}
 .layer_1{display:none;width:90%;position:fixed;top:5%;left:5%;z-index:300;background-color:white}
 .layer_2{display:none;width:800px;position:absolute;top:5%;left:50%;margin-left:-400px;z-index:300;background-color:white;border:2px solid #047db6;}
 .manage_container .statistics{text-align:center;width:98%;font-size:14px;}

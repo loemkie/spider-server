@@ -1,5 +1,6 @@
 package com.lmk.spider;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +36,11 @@ public class VultrSubmitDataController extends Controller {
 	public void save() {
 		VultrSubmitData vultrSubmitData = getModel(VultrSubmitData.class,"",true);
 		vultrSubmitData.set("id", UUID.randomUUID().toString().replaceAll("-", ""));
-		vultrSubmitData.set("update_date",new Date());
+		Date date = new Date();
+		Calendar ca=Calendar.getInstance();
+		ca.setTime(date);
+		ca.add(Calendar.HOUR_OF_DAY, 8);
+		vultrSubmitData.set("update_date",ca.getTime());
 		vultrSubmitData.save();
 		renderJson(vultrSubmitData);
 	}

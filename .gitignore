@@ -1,1 +1,4 @@
 /.settings
+/WebRoot/WEB-INF/classes/*.class
+/WebRoot/WEB-INF/classes/com/lmk/common/model/*.class
+/WebRoot/WEB-INF/classes/com/lmk/spider/*.class

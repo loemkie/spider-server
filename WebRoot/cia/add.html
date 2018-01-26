@@ -1,0 +1,35 @@
+#@layout()
+#define main()
+<h4>已卖号码管理 ---&gt; 新增
+</h4>
+<script type="text/javascript">
+function encode(){
+	var card_id = $("#card_id").val();
+	var card_id_encode = enString(card_id);
+	$("#card_id_encode").val(card_id_encode);
+	var user_name = $("#user_name").val();
+	var user_name_encode=encodeURI(user_name);
+	$("#user_name_encode").val(user_name_encode);
+	return true;
+}
+function reg(){
+	var content = $("#content").val();
+	var ar = content.split("\n");
+	var mobile = ar[0].substr(3);
+	var user_name = ar[1].substr(3);
+	var card_id=ar[2].substr(4);
+	var office_name=ar[3].substr(4);
+	$("#mobile").val(mobile);
+	$("#user_name").val(user_name);
+	var user_name_encode=encodeURI(user_name);
+	$("#user_name_encode").val(user_name_encode);
+	$("#card_id").val(card_id);
+	var card_id_encode = enString(card_id);
+	$("#card_id_encode").val(card_id_encode);
+	$("#office_name").val(office_name);
+}
+</script>
+<div class="form_box">
+	#include("_form.html")
+</div>
+#end

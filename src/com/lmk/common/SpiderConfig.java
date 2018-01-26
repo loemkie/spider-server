@@ -14,6 +14,7 @@ import com.jfinal.template.Engine;
 import com.lmk.common.model._MappingKit;
 import com.lmk.index.IndexController;
 import com.lmk.spider.BlogController;
+import com.lmk.spider.CardIdAssignController;
 import com.lmk.spider.VultrSubmitDataController;
 
 /**
@@ -59,6 +60,7 @@ public class SpiderConfig extends JFinalConfig {
 		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
 		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/sd", VultrSubmitDataController.class);
+		me.add("/cia", CardIdAssignController.class);
 	}
 	
 	public void configEngine(Engine me) {
