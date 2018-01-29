@@ -73,7 +73,7 @@ public class CardIdAssignController extends Controller {
 		List<CardIdAssign> cardIdAssignList = service.findAssignList(cardIdAssign);
 		String str = "";
 		for (CardIdAssign cardIdAssign2 : cardIdAssignList) {
-			str+=cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.timeStampPattern)+"\n";
+			str+=cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.datePattern)+"\n";
 		}
 		renderText(str);
 	}
