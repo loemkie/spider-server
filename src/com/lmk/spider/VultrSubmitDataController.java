@@ -61,9 +61,9 @@ public class VultrSubmitDataController extends Controller {
 		List<VultrSubmitData> vultrSubmitDataList = service.findSaleList(vultrSubmitData);
 		String str = "";
 		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
-			str+=vultrSubmitData2.get("mobile")+"|"+vultrSubmitData2.get("spec")+"|"+DateKit.toStr(vultrSubmitData2.getDate("update_date"), DateKit.timeStampPattern)+"\n";
+			str+=vultrSubmitData2.get("mobile")+"<br/>";
 		}
-		renderText(str);
+		renderHtml(str);
 	}
 	public void edit() {
 		setAttr("blog", service.findById(getParaToInt()));
