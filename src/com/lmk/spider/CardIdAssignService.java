@@ -34,7 +34,7 @@ public class CardIdAssignService {
 	 * @return
 	 */
 	public List<CardIdAssign> findAssignList(CardIdAssign cardIdAssign){
-		return dao.find("select * from card_id_assign where is_submit='0' order by update_date desc");
+		return dao.find("select * from card_id_assign where is_submit='0' order by update_date");
 	}
 	/**
 	 * 根据营业厅名称查询营业厅ID
@@ -51,7 +51,7 @@ public class CardIdAssignService {
 		return  idCardInfo.findFirst(sql);
 	}
 	
-	public CardIdAssign findById(int id) {
+	public CardIdAssign findById(String id) {
 		return dao.findById(id);
 	}
 	

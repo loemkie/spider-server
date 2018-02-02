@@ -37,7 +37,7 @@ public class VultrSubmitDataService {
 	 * @return
 	 */
 	public List<VultrSubmitData> findSaleList(VultrSubmitData vultrSubmitData){
-		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) = 0 order by mobile,update_date desc");
+		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) = 0 order by spec,mobile,update_date desc");
 	}
 	public VultrSubmitData findById(int id) {
 		return dao.findById(id);

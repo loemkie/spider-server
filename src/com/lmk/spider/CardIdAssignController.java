@@ -73,22 +73,24 @@ public class CardIdAssignController extends Controller {
 		List<CardIdAssign> cardIdAssignList = service.findAssignList(cardIdAssign);
 		String str = "";
 		for (CardIdAssign cardIdAssign2 : cardIdAssignList) {
-			str+=cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.datePattern)+"\n";
+			str+="<a href=\"update?id="+cardIdAssign2.getStr("id")+"\">置底"+"</a>|"+cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.timeStampPattern)+"<br/>";
 		}
-		renderText(str);
+		renderHtml(str);
 	}
 	public void edit() {
-		setAttr("blog", service.findById(getParaToInt()));
+		setAttr("blog", service.findById(getPara()));
 	}
 	
 	/**
 	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
 	 * 并要对数据进正确性进行验证，在此仅为了偷懒
 	 */
-	@Before(BlogValidator.class)
 	public void update() {
-		getBean(CardIdAssign.class).update();
-		redirect("/blog");
+		String id = getPara("id");
+		CardIdAssign cardIdAssign = service.findById(id);
+		cardIdAssign.set("update_date",new Date());
+		cardIdAssign.update();
+		redirect("/cia/assign");
 	}
 	
 	public void delete() {
