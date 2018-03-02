@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.kit.DateKit;
+import com.jfinal.plugin.activerecord.Db;
 import com.lmk.common.model.CardIdAssign;
 import com.lmk.common.model.IdCardInfo;
 import com.lmk.common.model.Office;
@@ -77,10 +78,24 @@ public class CardIdAssignController extends Controller {
 		}
 		renderHtml(str);
 	}
-	public void edit() {
-		setAttr("blog", service.findById(getPara()));
+	/**
+	 * 启动标志为0
+	 */
+	public void start() {
+		Db.update("update spider_control set start_ind='0'");
+		renderHtml("start_ind:0:等待");
 	}
-	
+	/**
+	 * 启动标志为3,每天监控会自动启动 会更新这个标志为0，如需停止，每天都需要改为3
+	 */
+	public void stop() {
+		Db.update("update spider_control set start_ind='3'");
+		renderHtml("start_ind:3:停止");
+	}
+	public void startSpider() {
+		Db.update("update spider_control set start_ind='1'");
+		renderHtml("start_ind:1:启动");
+	}
 	/**
 	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
 	 * 并要对数据进正确性进行验证，在此仅为了偷懒
