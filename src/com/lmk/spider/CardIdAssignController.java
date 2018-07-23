@@ -7,6 +7,8 @@ import java.util.UUID;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.kit.DateKit;
+import com.jfinal.kit.HttpKit;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.lmk.common.model.CardIdAssign;
 import com.lmk.common.model.IdCardInfo;
@@ -40,7 +42,22 @@ public class CardIdAssignController extends Controller {
 		cardIdAssign.set("id", UUID.randomUUID().toString().replaceAll("-", ""));
 		cardIdAssign.set("update_date",new Date());
 		cardIdAssign.set("is_submit", "0");
-		
+		//去空格
+		String mobile = cardIdAssign.getStr("mobile");
+		if(StrKit.notBlank(mobile)){
+			mobile = mobile.trim();
+			cardIdAssign.set("mobile", mobile);
+		}
+		String user_name = cardIdAssign.getStr("user_name");
+		if(StrKit.notBlank(user_name)){
+			user_name = user_name.trim();
+			cardIdAssign.set("user_name", user_name);
+		}
+		String card_id = cardIdAssign.getStr("card_id");
+		if(StrKit.notBlank(card_id)){
+			card_id = card_id.trim();
+			cardIdAssign.set("card_id", card_id);
+		}
 		Office office  = service.findOffice(cardIdAssign.getStr("office_name"));
 		if(office!=null){
 			cardIdAssign.set("office_id", office.get("office_id"));
@@ -74,7 +91,13 @@ public class CardIdAssignController extends Controller {
 		List<CardIdAssign> cardIdAssignList = service.findAssignList(cardIdAssign);
 		String str = "";
 		for (CardIdAssign cardIdAssign2 : cardIdAssignList) {
-			str+="<a href=\"update?id="+cardIdAssign2.getStr("id")+"\">置底"+"</a>|"+cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.timeStampPattern)+"<br/>";
+			if(cardIdAssign2.getDate("v_update_date") != null){
+				str+="<a href=\"update?id="+cardIdAssign2.getStr("id")+"\">置底"+"</a>|"+cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"
+						+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.datePattern)+
+						"|"+(cardIdAssign2.get("v_card_id")+"|"+DateKit.toStr(cardIdAssign2.getDate("v_update_date"), DateKit.datePattern))+"<br/>";
+			}else{
+				str+="<a href=\"update?id="+cardIdAssign2.getStr("id")+"\">置底"+"</a>|"+cardIdAssign2.get("mobile")+"|"+cardIdAssign2.get("user_name")+"|"+cardIdAssign2.get("card_id")+"|"+cardIdAssign2.get("office_name")+"|"+DateKit.toStr(cardIdAssign2.getDate("update_date"), DateKit.datePattern)+"<br/>";
+			}
 		}
 		renderHtml(str);
 	}
@@ -84,6 +107,26 @@ public class CardIdAssignController extends Controller {
 	public void start() {
 		Db.update("update spider_control set start_ind='0'");
 		renderHtml("start_ind:0:等待");
+		String url_43 = "http://43.224.33.253:9090/spider-server/cia/startSpider";
+		String url_45 = "http://45.76.223.23:9090/spider-server/cia/startSpider";
+		HttpKit.get(url_43);
+		HttpKit.get(url_45);
+	}
+	/**
+	 * 启动标志为0
+	 */
+	public void start43() {
+		String url_43 = "http://43.224.33.253:9090/spider-server/cia/startSpider";
+		String result = HttpKit.get(url_43);
+		renderHtml(result);
+	}
+	/**
+	 * 启动标志为0
+	 */
+	public void start45() {
+		String url_45 = "http://45.76.223.23:9090/spider-server/cia/startSpider";
+		String result = HttpKit.get(url_45);
+		renderHtml(result);
 	}
 	/**
 	 * 启动标志为3,每天监控会自动启动 会更新这个标志为0，如需停止，每天都需要改为3

@@ -21,6 +21,10 @@ public class BlogController extends Controller {
 		render("blog.html");
 	}
 	
+	public void account() {
+		renderHtml("1");
+	}
+	
 	public void add() {
 	}
 	

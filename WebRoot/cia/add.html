@@ -19,7 +19,7 @@ function reg(){
 	var user_name = ar[1].substr(3);
 	var card_id=ar[2].substr(4);
 	var office_name=ar[3].substr(4);
-	$("#mobile").val(mobile);
+	$("#mobile").val(mobile.trim());
 	$("#user_name").val(user_name);
 	var user_name_encode=encodeURI(user_name);
 	$("#user_name_encode").val(user_name_encode);

@@ -29,15 +29,22 @@ public class VultrSubmitDataService {
 	 * @return
 	 */
 	public List<VultrSubmitData> findList(VultrSubmitData vultrSubmitData){
-		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) >= 0 order by update_date desc");
+//		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) >= 0 order by update_date desc");
+		return dao.find("select * from vultr_submit_data where DATE_SUB(CURDATE(), INTERVAL 15 DAY) <= update_date order by update_date desc");
 	}
 	/**
 	 * 只能查询当天和昨天的数据
 	 * @param vultrSubmitData
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<VultrSubmitData> findSaleList(VultrSubmitData vultrSubmitData){
-		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) = 0 order by spec,mobile,update_date desc");
+//		return dao.find("select * from vultr_submit_data where TO_DAYS(NOW( ) ) - TO_DAYS( update_date) = 0 order by spec,mobile,update_date desc");
+		List  specList= dao.find("select a.*,1 count from vultr_submit_data a,(select TO_DAYS(max(update_date)) max_date from vultr_submit_data) b where TO_DAYS( update_date) =b.max_date and spec in('1','0')");
+//		List  saleList= dao.find("select a.* from vultr_submit_data a,(select TO_DAYS(max(update_date)) max_date from vultr_submit_data) b where TO_DAYS( update_date) =b.max_date and spec not in('1','0') order by mobile,update_date desc");
+		List  saleList= dao.find("select a.*,(SELECT cn from (select  mobile,count(1) cn from vultr_submit_data group by mobile) b where b.mobile=a.mobile) count from vultr_submit_data a,(select TO_DAYS(max(update_date)) max_date from vultr_submit_data) b where TO_DAYS( update_date) =b.max_date and spec not in('1','0') order by mobile,update_date desc");
+		specList.addAll(saleList);
+		return specList;
 	}
 	public VultrSubmitData findById(int id) {
 		return dao.findById(id);

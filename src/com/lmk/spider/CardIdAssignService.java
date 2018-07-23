@@ -34,7 +34,8 @@ public class CardIdAssignService {
 	 * @return
 	 */
 	public List<CardIdAssign> findAssignList(CardIdAssign cardIdAssign){
-		return dao.find("select * from card_id_assign where is_submit='0' order by update_date");
+//		return dao.find("select a.*,(select card_id from vultr_submit_data v where v.mobile=a.mobile order by v.update_date desc limit 1) as v_card_id,(select update_date from vultr_submit_data v where v.mobile=a.mobile order by v.update_date desc limit 1) as v_update_date from card_id_assign a where is_submit='0' order by update_date");
+		return dao.find("select a.*,(select card_id from vultr_submit_data v where v.mobile=a.mobile and (TO_DAYS(a.update_date)-TO_DAYS(v.update_date))<=1 order by v.update_date desc limit 1) as v_card_id,(select update_date from vultr_submit_data v where v.mobile=a.mobile and (TO_DAYS(a.update_date)-TO_DAYS(v.update_date))<=1 order by v.update_date desc limit 1) as v_update_date from card_id_assign a where is_submit='0' order by update_date");
 	}
 	/**
 	 * 根据营业厅名称查询营业厅ID

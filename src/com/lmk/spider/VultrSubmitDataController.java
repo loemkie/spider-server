@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.alibaba.druid.util.StringUtils;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.kit.DateKit;
@@ -61,9 +62,37 @@ public class VultrSubmitDataController extends Controller {
 		List<VultrSubmitData> vultrSubmitDataList = service.findSaleList(vultrSubmitData);
 		String str = "";
 		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
-			str+=vultrSubmitData2.get("mobile")+"<br/>";
+			String rs = "";
+			if(StringUtils.equals("1", vultrSubmitData2.getStr("spec"))){
+				rs="	"+"成功";
+			}
+			else if(StringUtils.equals("0", vultrSubmitData2.getStr("spec"))){
+				rs="	"+"空返回";
+			}else{
+				rs="	"+"预约中";
+			}
+			str+=vultrSubmitData2.get("mobile")+rs+"\n";
 		}
-		renderHtml(str);
+		renderText(str);
+	}
+	
+	public void stat() {
+		VultrSubmitData vultrSubmitData = new VultrSubmitData();
+		List<VultrSubmitData> vultrSubmitDataList = service.findSaleList(vultrSubmitData);
+		String str = "";
+		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
+			String rs = "";
+			if(StringUtils.equals("1", vultrSubmitData2.getStr("spec"))){
+				rs="	"+"成功";
+			}
+			else if(StringUtils.equals("0", vultrSubmitData2.getStr("spec"))){
+				rs="	"+"空返回";
+			}else{
+				rs="	"+"预约中";
+			}
+			str+=vultrSubmitData2.get("mobile")+rs+"|"+vultrSubmitData2.getStr("count")+"\n";
+		}
+		renderText(str);
 	}
 	public void edit() {
 		setAttr("blog", service.findById(getParaToInt()));
