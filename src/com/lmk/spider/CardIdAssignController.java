@@ -153,7 +153,7 @@ public class CardIdAssignController extends Controller {
 	
 	public void delete() {
 		service.deleteById(getParaToInt());
-		redirect("/blog");
+		redirect("/cia/assign");
 	}
 }
 

@@ -9,6 +9,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.kit.DateKit;
+import com.jfinal.kit.HttpKit;
 import com.lmk.common.model.VultrSubmitData;
 
 /**
@@ -111,6 +112,34 @@ public class VultrSubmitDataController extends Controller {
 	public void delete() {
 		service.deleteById(getParaToInt());
 		redirect("/blog");
+	}
+	/**
+	 * 当天爬到的数据同步到43
+	 */
+	public void syn43() {
+		VultrSubmitData vultrSubmitData = new VultrSubmitData();
+		List<VultrSubmitData> vultrSubmitDataList = service.findSaleList(vultrSubmitData);
+		String url_43 = "http://43.224.33.253:9090/spider-server/sd/save?";
+		// param = {"mobile":mobile,"city":city,"card_id":card_data[0],"user_name":card_data[1],"office_id":office_id,"spec":spec}
+		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
+			String url = url_43 + "mobile="+vultrSubmitData2.get("mobile")+"&city="+vultrSubmitData2.get("city")+"&card_id="+vultrSubmitData2.get("card_id")+"&user_name="+vultrSubmitData2.get("user_name")+
+					"&office_id="+vultrSubmitData2.get("office_id")+"&spec="+vultrSubmitData2.get("spec");
+			String result = HttpKit.get(url);
+		}
+		redirect("/sd/sale");
+	}
+	/**
+	 * 获取最近预约的身份证
+	 */
+	public void getCardId() {
+		VultrSubmitData vultrSubmitData = new VultrSubmitData();
+		List<VultrSubmitData> vultrSubmitDataList = service.findSaleList(vultrSubmitData);
+		String str = "";
+		for (VultrSubmitData vultrSubmitData2 : vultrSubmitDataList) {
+			String rs = "";
+			str+=vultrSubmitData2.get("card_id")+rs+"\n";
+		}
+		renderText(str);
 	}
 }
 
