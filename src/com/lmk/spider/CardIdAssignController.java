@@ -101,33 +101,7 @@ public class CardIdAssignController extends Controller {
 		}
 		renderHtml(str);
 	}
-	/**
-	 * 启动标志为0
-	 */
-	public void start() {
-		Db.update("update spider_control set start_ind='0'");
-		renderHtml("start_ind:0:等待");
-		String url_43 = "http://43.224.33.253:9090/spider-server/cia/startSpider";
-		String url_45 = "http://45.76.223.23:9090/spider-server/cia/startSpider";
-		HttpKit.get(url_43);
-		HttpKit.get(url_45);
-	}
-	/**
-	 * 启动标志为0
-	 */
-	public void start43() {
-		String url_43 = "http://43.224.33.253:9090/spider-server/cia/startSpider";
-		String result = HttpKit.get(url_43);
-		renderHtml(result);
-	}
-	/**
-	 * 启动标志为0
-	 */
-	public void start45() {
-		String url_45 = "http://45.76.223.23:9090/spider-server/cia/startSpider";
-		String result = HttpKit.get(url_45);
-		renderHtml(result);
-	}
+	
 	/**
 	 * 启动标志为3,每天监控会自动启动 会更新这个标志为0，如需停止，每天都需要改为3
 	 */
